@@ -39,11 +39,11 @@ func _physics_process(delta: float) -> void:
 
 func move_state(delta: float) -> void:
 	var input_vector = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	
+
 	if input_vector != Vector2.ZERO:
 		roll_vector = input_vector
 		sword_hitbox.knockback_vector = roll_vector
-		
+
 		anim_tree.set("parameters/Idle/blend_position", input_vector)
 		anim_tree.set("parameters/Run/blend_position", input_vector)
 		anim_tree.set("parameters/Attack/blend_position", input_vector)
