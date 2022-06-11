@@ -3,7 +3,7 @@ extends KinematicBody2D
 var knockback := Vector2.ZERO
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	knockback = knockback.move_toward(Vector2.ZERO, 10)
 	knockback = move_and_slide(knockback)
 

@@ -34,7 +34,7 @@ func _physics_process(delta: float) -> void:
 			attack_state(delta)
 
 
-func move_state(delta: float) -> void:
+func move_state(_delta: float) -> void:
 	var input_vector = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 
 	if input_vector != Vector2.ZERO:
@@ -59,13 +59,13 @@ func move_state(delta: float) -> void:
 		state = State.ATTACK
 
 
-func roll_state(delta: float) -> void:
+func roll_state(_delta: float) -> void:
 	velocity = roll_vector * ROLL_SPEED
 	anim_state.travel("Roll")
 	move()
 
 
-func attack_state(delta: float) -> void:
+func attack_state(_delta: float) -> void:
 	velocity = Vector2.ZERO
 	anim_state.travel("Attack")
 

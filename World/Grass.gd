@@ -9,6 +9,6 @@ func create_grass_effect():
 	parent_node.add_child(grass_effect)
 
 
-func _on_Hurtbox_area_entered(area: Area2D) -> void:
+func _on_Hurtbox_area_entered(_area: Area2D) -> void:
 	create_grass_effect()
 	queue_free()
