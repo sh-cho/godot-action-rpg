@@ -22,4 +22,4 @@ jobs:
           cache: 'pip'
 
       - name: Run gdlint
-        run : gdlint .
+        run : python -m gdlint .
