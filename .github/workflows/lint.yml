@@ -12,13 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
+      - name: Get requirements
+        run: cp "$PWD/.github/dist/requirements.txt" .
+
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
           cache: 'pip'
-
-      - name: Install dependencies
-        run: pip install 'gdtoolkit==3.*'
 
       - name: Run gdlint
         run : gdlint .
