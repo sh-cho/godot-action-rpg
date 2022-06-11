@@ -9,6 +9,7 @@ const FRICTION := 10
 onready var anim_player := $AnimationPlayer
 onready var anim_tree := $AnimationTree
 onready var anim_state: AnimationNodeStateMachinePlayback = anim_tree.get("parameters/playback")
+onready var sword_hitbox = $HitboxPivot/SwordHitbox
 
 
 enum State { MOVE, ROLL, ATTACK }
@@ -21,6 +22,7 @@ var roll_vector := Vector2.LEFT
 
 func _ready():
 	anim_tree.active = true
+	sword_hitbox.knockback_vector = roll_vector
 
 
 func _physics_process(delta: float) -> void:
@@ -40,6 +42,8 @@ func move_state(delta: float) -> void:
 	
 	if input_vector != Vector2.ZERO:
 		roll_vector = input_vector
+		sword_hitbox.knockback_vector = roll_vector
+		
 		anim_tree.set("parameters/Idle/blend_position", input_vector)
 		anim_tree.set("parameters/Run/blend_position", input_vector)
 		anim_tree.set("parameters/Attack/blend_position", input_vector)
