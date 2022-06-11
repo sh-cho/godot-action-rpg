@@ -22,7 +22,9 @@ jobs:
           cache: 'pip'
 
       - name: Install requirements
-        run: pip install -r requirements.txt
+        run: |
+          pip install --upgrade pip setuptools wheel
+          pip install -r requirements.txt
 
       - name: Run gdlint
         run : gdlint .
