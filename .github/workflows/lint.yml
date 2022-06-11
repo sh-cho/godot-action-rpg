@@ -28,3 +28,4 @@ jobs:
 
       - name: Run gdlint
         run : gdlint .
+        continue-on-error: true
