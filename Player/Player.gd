@@ -1,23 +1,20 @@
 extends KinematicBody2D
 
+enum State { MOVE, ROLL, ATTACK }
+
 const ACCELERATION := 100
 const MAX_SPEED := 80
 const ROLL_SPEED := MAX_SPEED * 1.3
 const FRICTION := 10
 
+var state = State.MOVE
+var velocity := Vector2.ZERO
+var roll_vector := Vector2.LEFT
 
 onready var anim_player := $AnimationPlayer
 onready var anim_tree := $AnimationTree
 onready var anim_state: AnimationNodeStateMachinePlayback = anim_tree.get("parameters/playback")
 onready var sword_hitbox = $HitboxPivot/SwordHitbox
-
-
-enum State { MOVE, ROLL, ATTACK }
-
-
-var state = State.MOVE
-var velocity := Vector2.ZERO
-var roll_vector := Vector2.LEFT
 
 
 func _ready():
@@ -61,21 +58,26 @@ func move_state(delta: float) -> void:
 	if Input.is_action_just_pressed("attack"):
 		state = State.ATTACK
 
+
 func roll_state(delta: float) -> void:
 	velocity = roll_vector * ROLL_SPEED
 	anim_state.travel("Roll")
 	move()
 
+
 func attack_state(delta: float) -> void:
 	velocity = Vector2.ZERO
 	anim_state.travel("Attack")
 
+
 func move():
 	velocity = move_and_slide(velocity)
+
 
 func roll_animation_finished():
 	velocity *= 0.8
 	state = State.MOVE
+
 
 func attack_animation_finished():
 	state = State.MOVE
