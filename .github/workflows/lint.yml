@@ -21,5 +21,8 @@ jobs:
           python-version: '3.10'
           cache: 'pip'
 
+      - name: Install requirements
+        run: pip install -r requirements.txt
+
       - name: Run gdlint
         run : python -m gdlint .
