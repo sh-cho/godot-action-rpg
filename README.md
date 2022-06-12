@@ -8,6 +8,6 @@
 ### How to play
 
 - Move: arrow key / WASD
-- Attack: X / J
-- Roll: Space / K
+- Attack: <kbd>X</kbd> / <kbd>J</kbd>
+- Roll: <kbd>Space</kbd> / <kbd>K</kbd>
 
