@@ -9,11 +9,16 @@ export var FRICTION := 10
 var velocity := Vector2.ZERO
 var knockback := Vector2.ZERO
 var state = CHASE
+var player = null
 
 onready var stats = $Stats
 onready var parent_node := get_parent()
 onready var player_detection_zone := $PlayerDetectionZone
 onready var anim_sprite := $AnimatedSprite
+
+
+func _ready() -> void:
+	anim_sprite.play("Animate")
 
 
 func _physics_process(_delta: float) -> void:
@@ -22,27 +27,18 @@ func _physics_process(_delta: float) -> void:
 
 	match state:
 		IDLE:
-			velocity = velocity.move_toward(Vector2.ZERO, FRICTION)
-			seek_player()
+			velocity = velocity.move_toward(Vector2.ZERO, FRICTION / 10)
 
 		WANDER:
 			pass
 
 		CHASE:
-			var player = player_detection_zone.player
 			if player != null:
 				var direction = global_position.direction_to(player.global_position)
 				velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION)
-			else:
-				state = IDLE
 			anim_sprite.flip_h = velocity.x < 0
 
 	velocity = move_and_slide(velocity)
-
-
-func seek_player():
-	if player_detection_zone.can_see_player():
-		state = CHASE
 
 
 func _on_Hurtbox_area_entered(area: Hitbox) -> void:
@@ -55,3 +51,12 @@ func _on_Stats_no_health() -> void:
 	enemy_death_effect.set_transform(get_transform())
 	parent_node.add_child(enemy_death_effect)
 	queue_free()
+
+
+func _on_PlayerDetectionZone_body_entered(body: Node) -> void:
+	player = body
+	state = CHASE
+
+
+func _on_PlayerDetectionZone_body_exited(_body: Node) -> void:
+	state = IDLE
