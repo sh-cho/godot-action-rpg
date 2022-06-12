@@ -2,13 +2,13 @@ extends KinematicBody2D
 
 enum { IDLE, WANDER, CHASE }
 
-var velocity := Vector2.ZERO
-var knockback := Vector2.ZERO
-var state = CHASE
-
 export var ACCELERATION := 100
 export var MAX_SPEED := 30
 export var FRICTION := 10
+
+var velocity := Vector2.ZERO
+var knockback := Vector2.ZERO
+var state = CHASE
 
 onready var stats = $Stats
 onready var parent_node := get_parent()
@@ -19,15 +19,15 @@ onready var anim_sprite := $AnimatedSprite
 func _physics_process(_delta: float) -> void:
 	knockback = knockback.move_toward(Vector2.ZERO, FRICTION)
 	knockback = move_and_slide(knockback)
-	
+
 	match state:
 		IDLE:
 			velocity = velocity.move_toward(Vector2.ZERO, FRICTION)
 			seek_player()
-		
+
 		WANDER:
 			pass
-		
+
 		CHASE:
 			var player = player_detection_zone.player
 			if player != null:
