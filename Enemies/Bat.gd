@@ -3,6 +3,7 @@ extends KinematicBody2D
 var knockback := Vector2.ZERO
 
 onready var stats = $Stats
+onready var parent_node := get_parent()
 
 
 func _physics_process(_delta: float) -> void:
@@ -16,4 +17,7 @@ func _on_Hurtbox_area_entered(area: Hitbox) -> void:
 
 
 func _on_Stats_no_health() -> void:
+	var enemy_death_effect = preload("res://Effects/EnemyDeathEffect.tscn").instance()
+	enemy_death_effect.set_transform(get_transform())
+	parent_node.add_child(enemy_death_effect)
 	queue_free()
