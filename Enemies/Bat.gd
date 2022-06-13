@@ -15,6 +15,7 @@ onready var stats = $Stats
 onready var parent_node := get_parent()
 onready var player_detection_zone := $PlayerDetectionZone
 onready var anim_sprite := $AnimatedSprite
+onready var hurtbox = $Hurtbox
 
 
 func _ready() -> void:
@@ -44,6 +45,7 @@ func _physics_process(_delta: float) -> void:
 func _on_Hurtbox_area_entered(area: Hitbox) -> void:
 	stats.health -= area.damage
 	knockback = area.knockback_vector * 200
+	hurtbox.create_hit_effect(area)
 
 
 func _on_Stats_no_health() -> void:

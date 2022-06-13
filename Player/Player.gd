@@ -10,14 +10,17 @@ const FRICTION := 10
 var state = State.MOVE
 var velocity := Vector2.ZERO
 var roll_vector := Vector2.LEFT
+var stats := PlayerStats
 
 onready var anim_player := $AnimationPlayer
 onready var anim_tree := $AnimationTree
 onready var anim_state: AnimationNodeStateMachinePlayback = anim_tree.get("parameters/playback")
 onready var sword_hitbox = $HitboxPivot/SwordHitbox
+onready var hurtbox = $Hurtbox
 
 
 func _ready():
+	stats.connect("no_health", self, "queue_free")
 	anim_tree.active = true
 	sword_hitbox.knockback_vector = roll_vector
 
@@ -81,3 +84,9 @@ func roll_animation_finished():
 
 func attack_animation_finished():
 	state = State.MOVE
+
+
+func _on_Hurtbox_area_entered(_area: Area2D) -> void:
+	stats.health -= 1
+	hurtbox.start_invincibility(0.5)
+	hurtbox.create_hit_effect()
