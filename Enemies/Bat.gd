@@ -45,7 +45,7 @@ func _physics_process(_delta: float) -> void:
 func _on_Hurtbox_area_entered(area: Hitbox) -> void:
 	stats.health -= area.damage
 	knockback = area.knockback_vector * 200
-	hurtbox.create_hit_effect(area)
+	hurtbox.create_hit_effect()
 
 
 func _on_Stats_no_health() -> void:
