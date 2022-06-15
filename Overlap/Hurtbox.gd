@@ -11,7 +11,7 @@ onready var main := get_tree().current_scene
 
 func set_invincible(value: bool) -> void:
 	invincible = value
-	emit_signal("invincibility_started" if invincible else "invincibility_ended")
+	set_deferred("monitoring", !invincible)
 
 
 func start_invincibility(duration: float):
@@ -27,11 +27,3 @@ func create_hit_effect() -> void:
 
 func _on_Timer_timeout() -> void:
 	self.invincible = false
-
-
-func _on_Hurtbox_invincibility_started() -> void:
-	set_deferred("monitoring", false)  # should be set via `set_deferred`
-
-
-func _on_Hurtbox_invincibility_ended() -> void:
-	monitoring = true

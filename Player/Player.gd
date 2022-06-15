@@ -66,6 +66,7 @@ func roll_state(_delta: float) -> void:
 	velocity = roll_vector * ROLL_SPEED
 	anim_state.travel("Roll")
 	move()
+	hurtbox.invincible = true
 
 
 func attack_state(_delta: float) -> void:
@@ -80,6 +81,7 @@ func move():
 func roll_animation_finished():
 	velocity *= 0.8
 	state = State.MOVE
+	hurtbox.invincible = false
 
 
 func attack_animation_finished():
