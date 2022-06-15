@@ -16,13 +16,14 @@ onready var parent_node := get_parent()
 onready var player_detection_zone := $PlayerDetectionZone
 onready var anim_sprite := $AnimatedSprite
 onready var hurtbox = $Hurtbox
+onready var soft_collision = $SoftCollision
 
 
 func _ready() -> void:
 	anim_sprite.play("Animate")
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	knockback = knockback.move_toward(Vector2.ZERO, FRICTION)
 	knockback = move_and_slide(knockback)
 
@@ -39,6 +40,8 @@ func _physics_process(_delta: float) -> void:
 				velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION)
 			anim_sprite.flip_h = velocity.x < 0
 
+	if soft_collision.check_overlap():
+		velocity += soft_collision.get_push_vector() * delta * 400
 	velocity = move_and_slide(velocity)
 
 
