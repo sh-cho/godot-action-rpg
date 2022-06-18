@@ -1,8 +1,5 @@
 extends Area2D
 
-signal invincibility_started
-signal invincibility_ended
-
 var invincible := false setget set_invincible
 
 onready var timer := $Timer
