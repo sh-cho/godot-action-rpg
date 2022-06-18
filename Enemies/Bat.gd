@@ -38,9 +38,9 @@ func _physics_process(delta: float) -> void:
 		WANDER:
 			if wander_controller.timer.is_stopped():
 				update_wander()
-			
+
 			accelerate_towards_point(wander_controller.target_position)
-			
+
 			# XXX: ?
 			if global_position.distance_to(wander_controller.target_position) <= MAX_SPEED:
 				update_wander()

@@ -12,7 +12,9 @@ func _ready():
 
 
 func update_target_position():
-	var target_vector = Vector2(rand_range(-wander_range, wander_range), rand_range(-wander_range, wander_range))
+	var target_vector = Vector2(
+		rand_range(-wander_range, wander_range), rand_range(-wander_range, wander_range)
+	)
 	target_position = start_position + target_vector
 
 
