@@ -90,9 +90,9 @@ func attack_animation_finished():
 	state = State.MOVE
 
 
-func _on_Hurtbox_area_entered(_area: Area2D) -> void:
-	stats.health -= 1
-	hurtbox.start_invincibility(0.5)
+func _on_Hurtbox_area_entered(area: Hitbox) -> void:
+	stats.health -= area.damage
+	hurtbox.start_invincibility(1)
 	hurtbox.create_hit_effect()
 	var player_hurt_sound = preload("res://Player/PlayerHurtSound.tscn").instance()
 	main.add_child(player_hurt_sound)

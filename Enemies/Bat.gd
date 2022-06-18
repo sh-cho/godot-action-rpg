@@ -22,7 +22,7 @@ onready var wander_controller = $WanderController
 
 func _ready() -> void:
 	state = pick_random_state([IDLE, WANDER])
-	anim_sprite.play("Animate")
+	anim_sprite.play("Fly")
 
 
 func _physics_process(delta: float) -> void:
@@ -75,6 +75,7 @@ func _on_Hurtbox_area_entered(area: Hitbox) -> void:
 	stats.health -= area.damage
 	knockback = area.knockback_vector * 200
 	hurtbox.create_hit_effect()
+	hurtbox.start_invincibility(0.4)
 
 
 func _on_Stats_no_health() -> void:
